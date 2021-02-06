@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/TerrenceJChan/readme-generator#readme",
   "dependencies": {
+    "fs": "0.0.1-security",
     "inquirer": "^7.3.3"
   }
 }
