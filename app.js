@@ -2,7 +2,6 @@ const fs = require('fs');
 const inquirer = require('inquirer');
 const { resolve } = require('path');
 const { stringify } = require('querystring');
-const template = require('./utils/template.json')
 
 let questions = () => {
     return inquirer
@@ -42,22 +41,30 @@ let questions = () => {
 
 const generate = async () => {
     let responses = await questions();
-    const writeContent = template.description.content;
-    // fs.writeFile('./output/README.md', stringify(responses), (err) => {
-    //     if (err) {
-    //         return console.log(err);
-    //     }
-    //     console.log('Check the output folder for your new README.md file!');
-    // })
 
-    console.log(responses);
-    template.description.content = responses.description;
-    template.installation.content = responses.installation;
-    template.usage.content = responses.usage;
-    template.contributing.content = responses.contributing;
-    template.tests.content = responses.tests;
+    if (fs.existsSync('./output/README.md')) {
+        fs.unlinkSync('./output/README.md');
+    }
 
-    console.log(template);
+    const newLine = "\r\n";
+
+    // Creates README string.
+    let mdString =
+        "## Table of Contents" +
+        newLine + "* [Description](#description)\r\n* [Installation](#installation)\r\n* [Usage](#usage)\r\n* [License](#license)\r\n* [Contributing](#contributing)\r\n* [Tests](#tests)\r\n" +
+        newLine + "## Description" +
+        newLine + responses.description +
+        newLine + "## Installation" +
+        newLine + responses.installation +
+        newLine + "## Usage" +
+        newLine + responses.usage +
+        newLine + "## Contributing" +
+        newLine + responses.contributing +
+        newLine + "## Tests" +
+        newLine + responses.tests;
+
+    // console.log(template);
+    fs.appendFileSync('./output/README.md', mdString);
 }
 
 generate();
