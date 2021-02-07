@@ -2,6 +2,7 @@ const fs = require('fs');
 const inquirer = require('inquirer');
 const { resolve } = require('path');
 const { stringify } = require('querystring');
+const template = require('./utils/template.json')
 
 let questions = () => {
     return inquirer
@@ -41,12 +42,22 @@ let questions = () => {
 
 const generate = async () => {
     let responses = await questions();
-    fs.writeFile('./output/README.md', stringify(responses), (err) => {
-        if (err) {
-            return console.log(err);
-        }
-        console.log('Check the output folder for your new README.md file!');
-    })
+    const writeContent = template.description.content;
+    // fs.writeFile('./output/README.md', stringify(responses), (err) => {
+    //     if (err) {
+    //         return console.log(err);
+    //     }
+    //     console.log('Check the output folder for your new README.md file!');
+    // })
+
+    console.log(responses);
+    template.description.content = responses.description;
+    template.installation.content = responses.installation;
+    template.usage.content = responses.usage;
+    template.contributing.content = responses.contributing;
+    template.tests.content = responses.tests;
+
+    console.log(template);
 }
 
 generate();
