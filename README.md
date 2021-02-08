@@ -1,6 +1,7 @@
 # README Generator
 ![License Badge](https://img.shields.io/badge/License-MIT-green.svg)  
 Create a profesionally lookig README.md file that is similar in structure to other high-profile projects that exist on Github.  
+Click on the image below, or go to https://www.youtube.com/watch?v=K6s1dhf-iCg&feature=youtu.be for the full usage instructions.
 [![README Generator Instructions](http://img.youtube.com/vi/K6s1dhf-iCg/0.jpg)](http://www.youtube.com/watch?v=K6s1dhf-iCg "README Generator Instructions")
 
 ## Table of Contents
