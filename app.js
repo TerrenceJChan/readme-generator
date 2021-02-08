@@ -26,12 +26,12 @@ let questions = () => {
             {
                 name: 'usage',
                 type: 'input',
-                message: "Enter the application's usage instructions:"
+                message: 'Enter the application\'s usage instructions:'
             },
             {
                 name: 'contributing',
                 type: 'input',
-                message: 'Explain the terms for contributors to help with your project.'
+                message: 'Explain the terms for contributors to help with your project'
             },
             {
                 name: 'tests',
@@ -78,12 +78,15 @@ const generate = async () => {
     }
 
     // Creates README string.
-    const newLine = "\r\n";
-    const toc = "* [Installation](#installation)" + newLine + "* [Usage](#usage)" + newLine + "* [Contributing](#contributing)" + newLine + "* [Tests](#tests)" + newLine + "* [License](#license)" + newLine + "* [Questions](#questions)";
+    const newLine = '\r\n';
+    const toc = '* [Installation](#installation)' + newLine + '* [Usage](#usage)' + newLine + '* [Contributing](#contributing)' + newLine + '* [Tests](#tests)' + newLine + '* [License](#license)' + newLine + '* [Questions](#questions)';
     let mdString = '';
     let licenseContent;
 
     if (responses.license !== 'None') {
+        if (responses.license === 'Other') {
+            responses.license = responses.other;
+        }
         mdString = `![License Badge](https://img.shields.io/badge/License-${responses.license}-green.svg)  ` + newLine;
         licenseContent = `©${responses.name}. This project is published under the ${responses.license} license.`;
     } else {
@@ -106,7 +109,8 @@ const generate = async () => {
         newLine + "## License" +
         newLine + licenseContent +
         newLine + "## Questions" +
-        newLine + `For questions, contact ${responses.name} at ${responses.email}.`;
+        newLine + `For questions, contact ${responses.name} at ${responses.email}.  
+        To view other projects by me, visit my [GitHub account](https://github.com/${responses.github}).`;
 
     // console.log(template);
     fs.appendFileSync('./output/README.md', mdString);
