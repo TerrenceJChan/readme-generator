@@ -95,6 +95,7 @@ const generate = async () => {
 
     mdString =
         mdString +
+        `#${responses.title}` +
         responses.description +
         newLine + "## Table of Contents" +
         newLine + toc +
