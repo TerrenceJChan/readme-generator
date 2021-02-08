@@ -113,8 +113,9 @@ const generate = async () => {
         newLine + `For questions, contact ${responses.name} at ${responses.email}.  
         To view other projects by me, visit my [GitHub account](https://github.com/${responses.github}).`;
 
-    // console.log(template);
+    // Writes README.md file to output folder.
     fs.appendFileSync('./output/README.md', mdString);
+    console.log('Your file has been created! You can find it in the output folder from the same directory as this program.');
 }
 
 // Starts the program for the user.
