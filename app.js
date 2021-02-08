@@ -37,6 +37,18 @@ let questions = () => {
                 name: 'tests',
                 type: 'input',
                 message: 'What tests can the user use?'
+            },
+            {
+                name: 'license',
+                type: 'list',
+                message: 'What license do you want to publish this project under? (Use arrow keys to navigate, use enter key to select)',
+                choices: ['None', 'Apache', 'GPLv2', 'GPLv3', 'MPL', 'MIT', 'BSL', 'Unilicense', 'Other']
+            },
+            {
+                when: (answers) => answers.license === 'Other',
+                name: 'other',
+                type: 'input',
+                message: 'Enter the name of the license you want to publish your project under.'
             }
         ]);
 }
@@ -53,9 +65,19 @@ const generate = async () => {
     // Creates README string.
     const newLine = "\r\n";
     const toc = "* [Installation](#installation)" + newLine + "* [Usage](#usage)" + newLine + "* [Contributing](#contributing)" + newLine + "* [Tests](#tests)" + newLine + "* [License](#license)" + newLine + "* [Questions](#questions)";
-    let mdString =
-        "## Description" +
-        newLine + responses.description +
+    let mdString = '';
+    let licenseContent;
+
+    if (responses.license !== 'None') {
+        mdString = `![License Badge](https://img.shields.io/badge/License-${responses.license}-green.svg)  ` + newLine;
+        licenseContent = `This project is published under the ${responses.license}.`;
+    } else {
+        licenseContent = `This project is not published under any license.`;
+    }
+
+    mdString =
+        mdString +
+        responses.description +
         newLine + "## Table of Contents" +
         newLine + toc +
         newLine + "## Installation" +
@@ -67,9 +89,9 @@ const generate = async () => {
         newLine + "## Tests" +
         newLine + responses.tests +
         newLine + "## License" +
-        newLine + responses.license +
+        newLine + licenseContent +
         newLine + "## Questions" +
-        newLine + responses.license;
+        newLine + responses.questions;
 
     // console.log(template);
     fs.appendFileSync('./output/README.md', mdString);
