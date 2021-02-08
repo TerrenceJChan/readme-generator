@@ -4,6 +4,8 @@ const { resolve } = require('path');
 const { stringify } = require('querystring');
 
 // Asks the user a series of questions regarding their project.
+// inquirer is used extensively here to prompt the user for inputs.
+// More info can on inquirer be found at https://www.npmjs.com/package/inquirer
 let questions = () => {
     // Inputs will return to 'responses' variable.
     return inquirer
@@ -73,6 +75,8 @@ const generate = async () => {
     let responses = await questions();
 
     // Checks to see if a current README file exists in the output folder.
+    // fs is used to write information onto the README file.
+    // More information on fs can be found at https://nodejs.org/api/fs.html
     if (fs.existsSync('./output/README.md')) {
         fs.unlinkSync('./output/README.md');
     }
@@ -94,8 +98,8 @@ const generate = async () => {
     }
 
     mdString =
-        mdString +
-        `#${responses.title}` +
+        `# ${responses.title}  ` +
+        newLine + mdString +
         responses.description +
         newLine + "## Table of Contents" +
         newLine + toc +
