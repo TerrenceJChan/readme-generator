@@ -49,6 +49,21 @@ let questions = () => {
                 name: 'other',
                 type: 'input',
                 message: 'Enter the name of the license you want to publish your project under.'
+            },
+            {
+                name: 'name',
+                type: 'input',
+                message: 'What is your name?'
+            },
+            {
+                name: 'github',
+                type: 'input',
+                message: 'What is your GitHub username?'
+            },
+            {
+                name: 'email',
+                type: 'input',
+                message: 'What is your email?'
             }
         ]);
 }
@@ -70,9 +85,9 @@ const generate = async () => {
 
     if (responses.license !== 'None') {
         mdString = `![License Badge](https://img.shields.io/badge/License-${responses.license}-green.svg)  ` + newLine;
-        licenseContent = `This project is published under the ${responses.license}.`;
+        licenseContent = `©${responses.name}. This project is published under the ${responses.license} license.`;
     } else {
-        licenseContent = `This project is not published under any license.`;
+        licenseContent = `©${responses.name}. This project is not published under any license.`;
     }
 
     mdString =
@@ -91,7 +106,7 @@ const generate = async () => {
         newLine + "## License" +
         newLine + licenseContent +
         newLine + "## Questions" +
-        newLine + responses.questions;
+        newLine + `For questions, contact ${responses.name} at ${responses.email}.`;
 
     // console.log(template);
     fs.appendFileSync('./output/README.md', mdString);
